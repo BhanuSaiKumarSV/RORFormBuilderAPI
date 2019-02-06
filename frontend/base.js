@@ -154,11 +154,14 @@ function addFormElementsToRightPane() {
     }
     rightForm.appendChild(document.createElement('br'));
   });
+  var divElement = document.createElement('div');
+  divElement.style = "justify-content: center;display: flex"
   var inputElement = document.createElement('input');
   inputElement.type = 'submit';
   inputElement.value = 'Save To DB';
   rightForm.onsubmit = formSubmit;
-  rightForm.appendChild(inputElement);
+  divElement.innerHTML += inputElement.outerHTML
+  rightForm.appendChild(divElement);
 }
 
 function removeElement(e, index) {
@@ -256,8 +259,8 @@ typeChange = () => {
 addOption = () => {
   optionCount = optionCount + 1;
   var el = document.createElement('html');
-  el.innerHTML = `<label for="option">option${optionCount}: Name: <input type="text" class="name" id="name${optionCount}">
-    Value: <input type="text" class="value" id="value${optionCount}"><br> </label>`;
+  el.innerHTML = `<label for="option"><br><u>Option${optionCount}:</u><br> Name:<input type="text" class="name" id="name${optionCount}">
+    <br>Value:<input type="text" class="value" id="value${optionCount}"><br> </label>`;
   document
     .getElementById('options')
     .appendChild(el.getElementsByTagName('label')[0]);

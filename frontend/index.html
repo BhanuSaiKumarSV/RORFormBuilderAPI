@@ -1,9 +1,11 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="base.css" />
-  </head>
 
-  <body>
+<head>
+  <link rel="stylesheet" href="base.css" />
+</head>
+
+<body>
+  <div class="first-half">
     <div class="left-pane">
       <div id="form">
         <div class="form-group">
@@ -12,28 +14,19 @@
         </div>
         <br />
         <div class="form-group">
-          <label
-            >Required:
+          <label>Required:
             <input type="checkbox" id="newField-required" class="ng-valid" />
           </label>
         </div>
         <br />
         <div class="form-group">
           <label for="newField-order">Order Weight:</label>
-          <input
-            class="form-control ng-valid-number"
-            type="number"
-            id="newField-order"
-          />
+          <input class="form-control ng-valid-number" type="number" id="newField-order" />
         </div>
         <br />
         <div class="form-group">
           <label for="newField-type">Field Type:</label>
-          <select
-            class="form-control"
-            id="newField-type"
-            onchange="typeChange()"
-          >
+          <select class="form-control" id="newField-type" onchange="typeChange()">
             <option value="text" selected="">Text</option>
             <option value="radio">Radio Buttons</option>
             <option value="select">Drop Menu (Select)</option>
@@ -51,26 +44,25 @@
           </div>
         </fieldset>
         <br />
-        <div>
-          <input
-            class="btn btn-warning"
-            type="submit"
-            value="Create New Field"
-            id="create"
-          />
+        <div class="new-field-btn">
+          <input class="btn btn-warning" type="submit" value="Create New Field" id="create" />
         </div>
         <br />
       </div>
     </div>
-    <br />
     <hr />
     <div id="right-pane">
       <br />
-      <span>results</span>
-        <form id="form-fields"></form>
+      <u><b>Results: </b></u>
+      <form id="form-fields"></form>
     </div>
+  </div>
+  <hr>
+  <div class="second-half">
     <button onclick="getAll()">Get All</button>
     <div id="all-forms"></div>
-    <script src="base.js"></script>
-  </body>
+  </div>
+  <script src="base.js"></script>
+</body>
+
 </html>
