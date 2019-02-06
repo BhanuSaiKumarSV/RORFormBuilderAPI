@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   get '/forms/edit/:id', to: 'form_template#edit'
   put '/forms/update/:id', to: 'form_template#update' 
   get '/forms/:id', to: 'form_template#request_template'
+  get 'forms/', to: 'form_template#request_template_all'
   delete '/forms/:id', to: 'form_template#destroy'
 end

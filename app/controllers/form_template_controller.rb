@@ -7,6 +7,12 @@ class FormTemplateController < ApplicationController
         render json: { form_data: @form }
     end 
 
+    def request_template_all
+        @form = FormTemplate.all
+
+        render json: { form_data: @form }
+    end 
+
     def create
         @form = FormTemplate.new(form_params)
 
