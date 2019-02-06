@@ -204,7 +204,7 @@ function formSubmit(e) {
         alert("Please enter form name");
     } else {
         (async () => {
-            const rawResponse = await fetch('http://10.211.0.149:3000/forms/create', {
+            const rawResponse = await fetch('/forms/create', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ function formSubmit(e) {
 }
 
 (function () {
-  fetch('http://10.211.0.149:3000/forms/')
+  fetch('/forms/')
   .then(function(response) {
     return response.json();
   })
@@ -246,7 +246,7 @@ function renderAllFormControls(myJson) {
 }
 
 function renderPerticularFrom(formId) {
-    fetch(`http://10.211.0.149:3000/forms/${formId}`)
+    fetch(`/forms/${formId}`)
     .then(function(response) {
       return response.json();
     })
