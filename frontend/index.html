@@ -1,68 +1,81 @@
 <html>
+  <head>
+    <link rel="stylesheet" href="base.css" />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="base.css" />
-</head>
-
-<body>
-  <div class="first-half">
-    <div class="left-pane">
-      <div id="form">
-        <div class="form-group">
-          <label for="newField-name">Field Name:</label>
-          <input type="text" class="form-control" id="newField-name" />
-        </div>
-        <br />
-        <div class="form-group">
-          <label>Required:
-            <input type="checkbox" id="newField-required" class="ng-valid" />
-          </label>
-        </div>
-        <br />
-        <div class="form-group">
-          <label for="newField-order">Order Weight:</label>
-          <input class="form-control ng-valid-number" type="number" id="newField-order" />
-        </div>
-        <br />
-        <div class="form-group">
-          <label for="newField-type">Field Type:</label>
-          <select class="form-control" id="newField-type" onchange="typeChange()">
-            <option value="text" selected="">Text</option>
-            <option value="radio">Radio Buttons</option>
-            <option value="select">Drop Menu (Select)</option>
-            <option value="checkboxes">Checkboxes</option>
-            <option value="textarea">Text Area</option>
-            <option value="number">Number</option>
-            <option value="date">Date</option>
-          </select>
-        </div>
-        <br />
-        <fieldset class="ng-scope">
-          <div id="options">
-            <label for="regex">Regex:</label>
-            <input type="text" class="form-control" id="regex" />
+  <body>
+    <div class="first-half">
+      <div class="left-pane">
+        <div id="form">
+          <div class="form-group">
+            <label for="newField-name">Field Name:</label>
+            <input type="text" class="form-control" id="newField-name" />
           </div>
-        </fieldset>
-        <br />
-        <div class="new-field-btn">
-          <input class="btn btn-warning" type="submit" value="Create New Field" id="create" />
+          <br />
+          <div class="form-group">
+            <label
+              >Required:
+              <input type="checkbox" id="newField-required" class="ng-valid" />
+            </label>
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="newField-order">Order Weight:</label>
+            <input
+              class="form-control ng-valid-number"
+              type="number"
+              id="newField-order"
+            />
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="newField-type">Field Type:</label>
+            <select
+              class="form-control"
+              id="newField-type"
+              onchange="typeChange()"
+            >
+              <option value="text" selected="">Text</option>
+              <option value="radio">Radio Buttons</option>
+              <option value="select">Drop Menu (Select)</option>
+              <option value="checkboxes">Checkboxes</option>
+              <option value="textarea">Text Area</option>
+              <option value="number">Number</option>
+              <option value="date">Date</option>
+            </select>
+          </div>
+          <br />
+          <fieldset class="ng-scope">
+            <div id="options">
+              <label for="regex">Regex:</label>
+              <input type="text" class="form-control" id="regex" />
+            </div>
+          </fieldset>
+          <br />
+          <div class="new-field-btn">
+            <input
+              class="btn btn-warning"
+              type="submit"
+              value="Create New Field"
+              id="create"
+            />
+          </div>
+          <br />
         </div>
+      </div>
+      <hr />
+      <div id="right-pane">
         <br />
+        <u><b>Results: </b></u>
+        <form id="form-fields"></form>
       </div>
     </div>
     <hr />
-    <div id="right-pane">
-      <br />
-      <u><b>Results: </b></u>
-      <form id="form-fields"></form>
-    </div>
-  </div>
-  <hr>
-  <div class="second-half">
-    <button onclick="getAll()">Get All</button>
-    <div id="all-forms"></div>
-  </div>
-  <script src="base.js"></script>
-</body>
 
+    <div class="second-half">
+      <div id="all-forms"></div>
+      <form id="single-form"></form>
+    </div>
+    <script src="base.js"></script>
+  </body>
 </html>

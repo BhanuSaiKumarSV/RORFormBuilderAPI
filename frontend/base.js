@@ -53,19 +53,28 @@ function sortByKey(array, key) {
   });
 }
 
-function addFormElementsToRightPane() {
+function addFormElementsToRightPane(formDataLocal) {
   // window.alert('sdfsdf',formData)
+  let formRender;
   var rightForm = document.getElementById('form-fields');
+  if(formDataLocal) {
+      rightForm = document.getElementById('single-form');
+      formRender = formDataLocal;
+  }
+  else {
+    formRender = formData;
+  }
   rightForm.innerHTML = null;
   console.log(formData);
-  formData = sortByKey(formData, 'order');
+  formRender = sortByKey(formRender, 'order');
 
-  formData.forEach((ele, index) => {
+  formRender.forEach((ele, index) => {
     switch (ele.type) {
       case 'text':
         var fieldName = document.createElement('span');
         var input = document.createElement('input');
         fieldName.innerHTML = ele.name;
+        fieldName.className = 'bold-label'
         input.type = ele.type;
         input.required = ele.required;
         input.className = 'form-control';
@@ -79,6 +88,7 @@ function addFormElementsToRightPane() {
         var fieldName = document.createElement('span');
         var textArea = document.createElement('textarea');
         fieldName.innerHTML = ele.name;
+        fieldName.className = 'bold-label'
         textArea.className = 'form-control';
         textArea.required = ele.required;
         fieldName.innerHTML += textArea.outerHTML;
@@ -87,6 +97,7 @@ function addFormElementsToRightPane() {
       case 'number':
         var fieldName = document.createElement('span');
         fieldName.innerHTML = ele.name;
+        fieldName.className = 'bold-label'
         var input = document.createElement('input');
         input.className = 'form-control';
         input.type = ele.type;
@@ -97,7 +108,11 @@ function addFormElementsToRightPane() {
         rightForm.appendChild(fieldName);
         break;
       case 'checkboxes':
-        var label = document.createElement('label');
+        var div = document.createElement('div');
+        var innerDiv = document.createElement('div');
+        innerDiv.innerHTML = ele.name;
+        innerDiv.className = 'bold-label'
+        div.appendChild(innerDiv);
         Object.keys(ele.options).forEach(opt => {
           var checkBox = document.createElement('input');
           checkBox.className = 'form-control-btn';
@@ -105,12 +120,11 @@ function addFormElementsToRightPane() {
           checkBox.type = 'checkbox';
           checkBox.name = opt;
           checkBox.value = ele.options[opt];
-
-          label.appendChild(checkBox);
-          label.appendChild(document.createTextNode(opt));
+          div.appendChild(checkBox);
+          div.appendChild(document.createTextNode(opt));
         });
-
-        rightForm.appendChild(label);
+        rightForm.appendChild(document.createElement('br'));
+        rightForm.appendChild(div);
         break;
       case 'select':
         var select = document.createElement('select');
@@ -122,11 +136,19 @@ function addFormElementsToRightPane() {
           option.value = ele.options[opt];
           select.appendChild(option);
         });
+        var div = document.createElement('div');
+        div.innerHTML = ele.name;
+        div.className = 'bold-label'
+        rightForm.appendChild(div);
+        rightForm.appendChild(document.createElement('br'));
         rightForm.appendChild(select);
         break;
       case 'radio':
-        var label = document.createElement('label');
-
+        var div = document.createElement('div');
+        var innerDiv = document.createElement('div');
+        innerDiv.innerHTML = ele.name;
+        innerDiv.className = 'bold-label'
+        div.appendChild(innerDiv);
         Object.keys(ele.options).forEach(opt => {
           var radio = document.createElement('input');
           radio.className = 'form-control-btn';
@@ -134,16 +156,16 @@ function addFormElementsToRightPane() {
           radio.name = ele.name;
           radio.required = ele.required;
           radio.value = ele.options[opt];
-
-          label.appendChild(radio);
-          label.appendChild(document.createTextNode(opt));
+          div.appendChild(radio);
+          div.appendChild(document.createTextNode(opt));
         });
-
-        rightForm.appendChild(label);
+        rightForm.appendChild(document.createElement('br'));
+        rightForm.appendChild(div);
         break;
       case 'date':
         var fieldName = document.createElement('span');
         fieldName.innerHTML = ele.name;
+        fieldName.className = 'bold-label'
         var input = document.createElement('input');
         input.className = 'form-control';
         input.required = ele.required;
@@ -158,9 +180,14 @@ function addFormElementsToRightPane() {
   divElement.style = "justify-content: center;display: flex"
   var inputElement = document.createElement('input');
   inputElement.type = 'submit';
-  inputElement.value = 'Save To DB';
+  inputElement.value = 'Save Form To DB';
   rightForm.onsubmit = formSubmit;
-  divElement.innerHTML += inputElement.outerHTML
+  if(formDataLocal) {
+    inputElement.type = 'button';
+    inputElement.value = 'SUBMIT';
+    inputElement.onclick = ()=>{alert("Yay! Submitted")}
+  }
+  divElement.appendChild(inputElement);
   rightForm.appendChild(divElement);
 }
 
@@ -172,27 +199,32 @@ function removeElement(e, index) {
 
 function formSubmit(e) {
   e.preventDefault();
-  (async () => {
-    const rawResponse = await fetch('http://10.211.0.149:3000/forms/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: 'FirstForm',
-        content: JSON.stringify(formData),
-      }),
-    });
-    const content = await rawResponse.json();
-    if (content.success_msg == 'Your form got created !') {
-      alert('Your form got created successfully!! ');
-      location.reload();
+    var formName = prompt("Please enter form name:");
+    if (formName == null || formName == "") {
+        alert("Please enter form name");
+    } else {
+        (async () => {
+            const rawResponse = await fetch('http://10.211.0.149:3000/forms/create', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                name: formName,
+                content: JSON.stringify(formData),
+                }),
+            });
+            const content = await rawResponse.json();
+            if (content.success_msg == 'Your form got created !') {
+                alert('Your form got created successfully!! ');
+                location.reload();
+            }
+            console.log(content);
+        })();
     }
-    console.log(content);
-  })();
 }
 
-async function getAll() {
+(function () {
   fetch('http://10.211.0.149:3000/forms/')
   .then(function(response) {
     return response.json();
@@ -200,16 +232,27 @@ async function getAll() {
   .then(function(myJson) {
     renderAllFormControls(myJson.form_data);
   });
-}
+})()
 
 function renderAllFormControls(myJson) {
     var allForms = document.getElementById('all-forms')
     myJson.forEach(e=> {
         const div = document.createElement('div')
         div.className = "form-button"
+        div.onclick = function() {renderPerticularFrom(e.id)}
         div.innerHTML = e.name;
         allForms.appendChild(div);
     })
+}
+
+function renderPerticularFrom(formId) {
+    fetch(`http://10.211.0.149:3000/forms/${formId}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
+      addFormElementsToRightPane(JSON.parse(myJson.form_data.content))
+    });
 }
 
 document.getElementById('create').addEventListener('click', function(e) {

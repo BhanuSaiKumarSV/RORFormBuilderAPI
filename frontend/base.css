@@ -54,7 +54,7 @@ body {
 
 .form-button {
   background-color: #e6e2e2;
-  display: inline;
+  display: inline-block;
   margin: 2px;
   padding: 2px;
 }
@@ -79,4 +79,12 @@ body {
   overflow: auto;
   margin-left: 2%;
   width: 50%
+}
+.form-button:hover {
+  cursor: pointer;
+  background-color: #8f8f9e;
+}
+
+.bold-label {
+  font-weight: bold;
 }
