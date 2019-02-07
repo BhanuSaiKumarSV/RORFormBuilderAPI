@@ -204,7 +204,7 @@ function formSubmit(e) {
         alert("Please enter form name");
     } else {
         (async () => {
-            const rawResponse = await fetch('/forms/create', {
+            const rawResponse = await fetch('http://10.211.0.149:3000/forms/create', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -225,7 +225,14 @@ function formSubmit(e) {
 }
 
 (function () {
-  fetch('/forms/')
+  const currentLocation = window.location.href.pathname;
+  let id = currentLocation.slice(-1);
+  if(!isNaN(id)){
+    document.getElementsByClassName("first-half")[0].remove();
+    renderPerticularFrom(id);
+    return
+  }
+  fetch('http://10.211.0.149:3000/forms/')
   .then(function(response) {
     return response.json();
   })
@@ -246,11 +253,13 @@ function renderAllFormControls(myJson) {
 }
 
 function renderPerticularFrom(formId) {
-    fetch(`/forms/${formId}`)
+    fetch(`http://10.211.0.149:3000/forms/${formId}`)
     .then(function(response) {
       return response.json();
     })
     .then(function(myJson) {
+      const formName = document.getElementById("form-name");
+      formName.innerHTML = myJson.form_data.name;
       addFormElementsToRightPane(JSON.parse(myJson.form_data.content))
     });
 }
