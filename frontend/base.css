@@ -32,14 +32,34 @@ body {
 }
 
 @media (min-width: 992px) {
-  body {
-      width: 970px;
+  .left-pane {
+    overflow: auto;
+    margin-right: 2%;
+    width: 50%;
+    float: left;
+  }
+  #right-pane {
+    overflow: auto;
+    margin-left: 2%;
+    width: 46%;
+    float: left;
   }
 }
 
-@media (min-width: 768px) {
-  body {
-      width: 750px;
+hr {
+  clear: left;
+}
+
+@media (max-width: 992px) {
+  .left-pane {
+    overflow: auto;
+    margin-right: 2%;
+    width: 100%
+  }
+  #right-pane {
+    overflow: auto;
+    margin-left: 2%;
+    width: 100%
   }
 }
 
@@ -60,26 +80,14 @@ body {
 }
 
 .first-half {
-  margin-bottom: 2%; 
-  display: flex;
-  height: 50%
+  margin-bottom: 2%;
 }
 
 .second-half {
   width: 100%
 }
 
-.left-pane {
-  overflow: auto;
-  margin-right: 2%;
-  width: 50%
-}
 
-#right-pane {
-  overflow: auto;
-  margin-left: 2%;
-  width: 50%
-}
 .form-button:hover {
   cursor: pointer;
   background-color: #8f8f9e;

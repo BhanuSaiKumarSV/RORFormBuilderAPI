@@ -225,7 +225,7 @@ function formSubmit(e) {
 }
 
 (function () {
-  const currentLocation = window.location.href.pathname;
+  const currentLocation = window.location.pathname;
   let id = currentLocation.slice(-1);
   if(!isNaN(id)){
     document.getElementsByClassName("first-half")[0].remove();
